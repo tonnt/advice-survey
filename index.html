@@ -1,0 +1,35 @@
+<!doctype html>
+<!--
+  European Financial Advice in Practice, Tallinn University of Technology.
+  Entry link for the survey. Assigns each respondent at random to one of three
+  question-block pairs (blk) and one of four versions of a short scenario (v),
+  then forwards to the questionnaire. An optional association code (?src=it)
+  is passed through for response monitoring. No data are collected here.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>European Financial Advice in Practice</title>
+<script>
+(function () {
+  var FORM = "https://tally.so/r/4aBqpd";
+  function draw(n) {
+    var buf = new Uint32Array(1), limit = 4294967296 - (4294967296 % n), x;
+    do { crypto.getRandomValues(buf); x = buf[0]; } while (x >= limit);
+    return 1 + (x % n);
+  }
+  var q = "?blk=" + draw(3) + "&v=" + draw(4);
+  var src = new URLSearchParams(window.location.search).get("src");
+  if (src && /^[a-z]{2,12}$/i.test(src)) q += "&src=" + encodeURIComponent(src.toLowerCase());
+  window.location.replace(FORM + q);
+})();
+</script>
+<style>body{font:16px/1.5 system-ui,sans-serif;margin:2rem;color:#222}</style>
+</head>
+<body>
+<p>Opening the survey…</p>
+<noscript><p><a href="https://tally.so/r/4aBqpd">Open the survey</a></p></noscript>
+</body>
+</html>
